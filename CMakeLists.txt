@@ -20,6 +20,7 @@ qt_add_qml_module(appThreeBody
         SOURCES view.h view.cpp
         SOURCES paintball.h paintball.cpp
         QML_FILES PaintBallQML.qml
+        SOURCES ball.h ball.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.

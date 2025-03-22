@@ -25,18 +25,30 @@ void View::initialize()
 
 }
 
-QQuickItem* View::createBall()
+Ball* View::createBall()
 {
+    Ball * ball = new Ball();
     QQmlComponent component(engine, QUrl::fromLocalFile("ThreeBody/PaintBallQML.qml"));
     QQuickItem* object = qobject_cast<QQuickItem*>(component.create());
     object->setParentItem(this);
     object->setParent(engine);
-    return object;
+    ball->setPaintball(object);
+    return ball;
 }
 
 void View::iterate()
 {
     for(int i=0; i<objects.length(); i++){
-        objects[i]->setPosition(objects[i]->position() + QPointF(0,1));
+
+        QVector2D velocity = objects[i]->getVelocity();
+        objects[i]->setPosition(objects[i]->position() + velocity.toPointF());
+
+        objects[i]->setVelocity(velocity + QVector2D(0,0.05));
+
+        if(objects[i]->position().y() + 100 > height()){
+            objects[i]->setPosition(QPointF(objects[i]->position().x(),height()-100));
+            objects[i]->setVelocity(objects[i]->getVelocity() * -0.9);
+        }
+
     }
 }

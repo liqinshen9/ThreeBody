@@ -1,6 +1,8 @@
 #ifndef VIEW_H
 #define VIEW_H
 
+#include <ball.h>
+
 #include <QTimer>
 #include <QQuickItem>
 #include <QQmlApplicationEngine>
@@ -14,7 +16,7 @@ public:
 
     Q_INVOKABLE void initialize();
 
-    QQuickItem * createBall();
+    Ball * createBall();
 
 private:
     int counter  = 0;
@@ -22,7 +24,7 @@ private:
 
     QQmlApplicationEngine * engine = nullptr;
 
-    QVector<QQuickItem*> objects;
+    QVector<Ball*> objects;
 
 public slots:
     void iterate();
