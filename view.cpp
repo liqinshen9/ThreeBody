@@ -22,7 +22,9 @@ void View::initialize()
     objects[0]->setPosition(QPointF(60,60));
     objects[1]->setPosition(QPointF(600,450));
     objects[2]->setPosition(QPointF(300,500));
-
+    objects[0]->setVelocity(QVector2D(2,0));
+    objects[1]->setVelocity(QVector2D(-1,0));
+    objects[2]->setVelocity(QVector2D(3,0));
 }
 
 Ball* View::createBall()
@@ -47,8 +49,24 @@ void View::iterate()
 
         if(objects[i]->position().y() + 100 > height()){
             objects[i]->setPosition(QPointF(objects[i]->position().x(),height()-100));
-            objects[i]->setVelocity(objects[i]->getVelocity() * -0.9);
+            QVector2D v = objects[i]->getVelocity();
+            QVector2D new_v = QVector2D(v.x(),v.y() * -0.9);
+            objects[i]->setVelocity(new_v);
         }
+        if(objects[i]->position().x() + 100 > width()){
+            objects[i]->setPosition(QPointF(width()-100,objects[i]->position().y()));
+            QVector2D v = objects[i]->getVelocity();
+            QVector2D new_v = QVector2D(v.x()*-0.9,v.y());
+            objects[i]->setVelocity(new_v);
+        }
+        if(objects[i]->position().x()< 0){
+            objects[i]->setPosition(QPointF(0,objects[i]->position().y()));
+            QVector2D v = objects[i]->getVelocity();
+            QVector2D new_v = QVector2D(v.x()*-0.9,v.y());
+            objects[i]->setVelocity(new_v);
+        }
+
+
 
     }
 }
